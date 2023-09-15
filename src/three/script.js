@@ -74,6 +74,21 @@ renderer.setSize(aspect.width, aspect.height)    //Renderer size
 
 //-.5, -.5
 
+//Resizing
+window.addEventListener("resize", () => {
+    aspect.width = window.innerWidth;
+    aspect.height = window.innerHeight;
+
+    //New AspectRation
+
+    camera.aspect = aspect.width / aspect.height;
+    camera.updateProjectionMatrix();
+
+    //New RederSize
+
+    renderer.setSize(aspect.width, aspect.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
+})
 
 // Clocks
 const clock = new THREE.Clock();
@@ -100,14 +115,14 @@ const animate = () => {
     // Update target vector and make mesh look at the target
 
 
-   
+
     // Convert the 2D cursor coordinates to 3D world coordinates
     vector.set(-cursor.x, -cursor.y, 1);
     vector.unproject(camera);
     mesh.lookAt(vector);
     // Renderer
     renderer.render(scene, camera); // Display what camera see
-  
+
 
     // Request Animation
     window.requestAnimationFrame(animate);
