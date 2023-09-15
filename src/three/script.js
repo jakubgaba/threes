@@ -3,8 +3,10 @@
 //Camera
 //Renderer
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 
+console.log(OrbitControls);
 
 //Scene
 const scene = new THREE.Scene()
@@ -74,6 +76,11 @@ renderer.setSize(aspect.width, aspect.height)    //Renderer size
 
 //-.5, -.5
 
+//OrbitControls
+const orbitControls = new OrbitControls(camera,canvas);
+orbitControls.autoRotate= true;
+
+
 //Resizing
 window.addEventListener("resize", () => {
     aspect.width = window.innerWidth;
@@ -123,7 +130,10 @@ const animate = () => {
     // Renderer
     renderer.render(scene, camera); // Display what camera see
 
-
+    orbitControls.update();
+    // orbitControls.autoRotateSpeed=6;
+    orbitControls.enableDamping = true;
+    orbitControls.dampingFactor = 0.01;
     // Request Animation
     window.requestAnimationFrame(animate);
 };
