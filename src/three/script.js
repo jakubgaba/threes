@@ -24,11 +24,16 @@ const gui = new dat.GUI();
 //group
 const group = new THREE.Group()
 
-//ligths
-const ambientLight = new THREE.AmbientLight(0xffffff, 1); // soft white light
-const pointLight = new THREE.PointLight(0xffffff, 2);
-pointLight.position.set(2, 2, 2);
-scene.add(ambientLight, pointLight);
+// //ligths
+// const ambientLight = new THREE.AmbientLight(0xffffff, 1); // soft white light
+// const pointLight = new THREE.PointLight(0xffffff, 2);
+// pointLight.position.set(2, 2, 2);
+// scene.add(ambientLight, pointLight);
+
+
+//ambientLight
+const ambientLight = new THREE.AmbientLight("0#ffffff", 0.5);
+scene.add(ambientLight);
 
 // Texture loader
 const textureLoader = new THREE.TextureLoader();
@@ -56,7 +61,7 @@ scene.background = envTexture;
 const geometry = new THREE.SphereGeometry(0.5, 32, 32);
 const material = new THREE.MeshStandardMaterial();
 material.metalness = 0.9;
-material. roughness = 0.1;
+material.roughness = 0.1;
 material.envMap = envTexture
 // material.map = colorTex;
 // material.displacementMap = displacementTex;
@@ -69,9 +74,10 @@ const mesh = new THREE.Mesh(geometry, material);
 
 
 //Range(1)
-gui.add(mesh.position,"x").min(-3).max(3).step(0.1).name("X movement");
+gui.add(mesh.position, "x").min(-3).max(3).step(0.1).name("X movement");
 //Boolean(2)
-gui.add(material,"wireframe");
+gui.add(material, "wireframe");
+gui.add(ambientLight, "intensity").min(0).max(3).step(0.01).name("Intesity One")
 
 //MESH 2
 const geometryT = new THREE.BoxGeometry(1, 1, 1)
@@ -127,7 +133,7 @@ renderer.setSize(aspect.width, aspect.height)    //Renderer size
 
 //OrbitControls
 const orbitControls = new OrbitControls(camera, canvas);
-orbitControls.autoRotate = true;
+// orbitControls.autoRotate = true;
 
 
 //Resizing
